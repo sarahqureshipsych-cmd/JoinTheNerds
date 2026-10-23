@@ -1,0 +1,366 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Join the Nerds</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow column on graph paper, like a lab notebook page. Intro, one screening question, house rules, then a handoff to Telegram. */
+:root {
+  --paper: #F1F4F8;
+  --grid: #DCE3EC;
+  --ink: #12203A;
+  --muted: #526079;
+  --card: #FFFFFF;
+  --line: #C3CCDB;
+  --mark: #FFD84A;
+  --mark-ink: #12203A;
+  --focus: #2F5DFF;
+  --err: #B3261E;
+  --btn-bg: #12203A;
+  --btn-fg: #F1F4F8;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0D1424;
+    --grid: #172139;
+    --ink: #E8EDF7;
+    --muted: #9AA8C4;
+    --card: #131D33;
+    --line: #2A3856;
+    --focus: #8DA7FF;
+    --err: #FF8A80;
+    --btn-bg: #E8EDF7;
+    --btn-fg: #0D1424;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0D1424;
+  --grid: #172139;
+  --ink: #E8EDF7;
+  --muted: #9AA8C4;
+  --card: #131D33;
+  --line: #2A3856;
+  --focus: #8DA7FF;
+  --err: #FF8A80;
+  --btn-bg: #E8EDF7;
+  --btn-fg: #0D1424;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 34rem; margin: 0 auto; display: grid; gap: 22px; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 11vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin: 10px 0 14px;
+  text-wrap: balance;
+}
+.mark {
+  display: inline-block;
+  background: var(--mark);
+  color: var(--mark-ink);
+  padding: 0 .14em;
+  border-radius: 3px;
+  transform: rotate(-1.5deg);
+}
+.lead { margin: 0; font-size: 1.05rem; max-width: 34ch; color: var(--ink); }
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 20px 18px;
+  display: grid;
+  gap: 20px;
+}
+.field { display: grid; gap: 6px; min-width: 0; }
+label, legend {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0;
+}
+.hint { font-size: .875rem; color: var(--muted); margin: 0; }
+textarea, input[type="text"], input[type="number"] {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 11px 12px;
+}
+textarea { min-height: 8.5rem; resize: vertical; }
+textarea::placeholder, input::placeholder { color: var(--muted); opacity: .8; }
+textarea:focus-visible, input:focus-visible, button:focus-visible, a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; min-width: 0; }
+.rule {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: start;
+  font-size: .95rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+.rule input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--btn-bg); }
+.rule b { font-weight: 600; }
+button.primary, a.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-weight: 600;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 0;
+  border-radius: 4px;
+  padding: 14px 20px;
+  min-height: 48px;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+}
+button.primary:disabled { opacity: .35; cursor: not-allowed; }
+button.ghost {
+  font: inherit;
+  font-weight: 500;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 10px 14px;
+  min-height: 44px;
+  cursor: pointer;
+}
+.status { font-size: .875rem; color: var(--muted); margin: 0; min-height: 1.4em; }
+.note { font-size: .875rem; color: var(--muted); margin: 0; }
+h2 { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; margin: 0; letter-spacing: -.01em; }
+.msg { font-family: var(--font-mono); font-size: 13px; line-height: 1.55; min-height: 11rem; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row > * { flex: 1 1 10rem; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) 6.5rem; gap: 12px; }
+.steps { margin: 0; padding-left: 1.2rem; display: grid; gap: 4px; font-size: .95rem; }
+.warn { color: var(--err); font-weight: 600; margin: 0; }
+footer { font-size: .8125rem; color: var(--muted); margin: 0; }
+</style>
+
+<main class="wrap">
+  <header>
+    <p class="eyebrow">Membership form &middot; about 2 minutes</p>
+    <h1>Join the <span class="mark">nerds</span>.</h1>
+    <p class="lead">A small private group on Telegram for people who get excited about how things work. Tell us why you want in. A real person reads every answer before anyone is let through.</p>
+  </header>
+
+  <form id="f" class="panel" novalidate>
+    <div class="pair">
+      <div class="field">
+        <label for="pname">Your name</label>
+        <input type="text" id="pname" name="pname" maxlength="60" autocomplete="given-name" placeholder="First name is fine">
+      </div>
+      <div class="field">
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" inputmode="numeric" min="18" max="99" placeholder="e.g. 21">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="source">Where did you find this group?</label>
+      <p class="hint" id="source-hint">Which platform? Or did someone refer you? Tell us how you found us.</p>
+      <input type="text" id="source" name="source" maxlength="200" autocomplete="off" aria-describedby="source-hint" placeholder="Instagram, or a friend's name...">
+    </div>
+
+    <div class="field">
+      <label for="why">What's a rabbit hole you went down recently? What did you find?</label>
+      <p class="hint" id="why-hint">A few honest sentences is plenty. There is no right answer.</p>
+      <textarea id="why" name="why" rows="5" aria-describedby="why-hint count" placeholder="Recently I fell down a rabbit hole about..."></textarea>
+      <div class="count" id="count" aria-live="off">0 / 40 min</div>
+    </div>
+
+    <div class="field">
+      <label for="topic">What's the most useless fact you know and love?</label>
+      <input type="text" id="topic" name="topic" maxlength="80" autocomplete="off" placeholder="A fact you can't stop sharing">
+    </div>
+
+    <div class="field">
+      <label for="vouch">Is there anyone in the group who can vouch for you?</label>
+      <p class="hint" id="vouch-hint">Give their name, or write "none". This one is optional.</p>
+      <input type="text" id="vouch" name="vouch" maxlength="80" autocomplete="off" aria-describedby="vouch-hint" placeholder="Their name, or none">
+    </div>
+
+    <fieldset>
+      <legend>Three house rules that keep us safe</legend>
+      <label class="rule" for="r1"><input type="checkbox" id="r1" name="rule"><span><b>Be kind.</b> Disagreeing is welcome. Mocking people is not.</span></label>
+      <label class="rule" for="r2"><input type="checkbox" id="r2" name="rule"><span><b>Keep it inside.</b> What is said in the group stays in the group. No screenshots shared outside.</span></label>
+      <label class="rule" for="r3"><input type="checkbox" id="r3" name="rule"><span><b>No spam.</b> No promo links, and no messaging members who have not messaged you first.</span></label>
+    </fieldset>
+
+    <label class="rule" for="adult"><input type="checkbox" id="adult" name="adult"><span><b>I am 18 or older.</b> This group is for adults only.</span></label>
+
+    <div class="field">
+      <button type="submit" class="primary" id="go" disabled>Request to join</button>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+
+  <section id="done" class="panel" hidden aria-labelledby="done-title">
+    <h2 id="done-title">Your answer is ready.</h2>
+    <ol class="steps">
+      <li>Copy the message below.</li>
+      <li>Open Telegram and send it.</li>
+      <li>Wait for the admin to approve you.</li>
+    </ol>
+    <div class="field">
+      <label for="msg">Your message</label>
+      <textarea id="msg" class="msg" readonly></textarea>
+      <p class="note" id="copynote" role="status" aria-live="polite"></p>
+    </div>
+    <div class="row">
+      <button type="button" class="ghost" id="copy">Copy message</button>
+      <button type="button" class="ghost" id="edit">Edit my answer</button>
+    </div>
+    <a class="primary" id="tg" href="#" target="_blank" rel="noopener noreferrer" hidden>Open Telegram</a>
+    <p class="warn" id="notg" hidden>The admin has not added the Telegram link yet. Check back soon.</p>
+  </section>
+
+  <footer>This page does not save or send anything. Your answer leaves your phone only when you paste it into Telegram yourself.</footer>
+</main>
+
+<script>
+(function () {
+  // The admin sets this once: a t.me link to a person (https://t.me/username) or a group invite that needs approval.
+  var TELEGRAM_URL = "https://t.me/sarahqureshipsych";
+  var MIN = 40;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $("f"), why = $("why"), topic = $("topic"), go = $("go");
+  var pname = $("pname"), age = $("age"), source = $("source"), vouch = $("vouch"), adult = $("adult");
+  var statusEl = $("status"), count = $("count");
+  var done = $("done"), msg = $("msg"), copyNote = $("copynote");
+  var rules = Array.prototype.slice.call(document.querySelectorAll('input[name="rule"]'));
+
+  function missing() {
+    var out = [];
+    var a = Number(age.value);
+    if (pname.value.trim().length < 2) out.push("add your name");
+    if (!(a >= 18 && a <= 99 && Math.floor(a) === a)) out.push("enter your age as a number (18 or older)");
+    if (source.value.trim().length < 3) out.push("tell us where you found the group");
+    var w = why.value.trim().length;
+    if (w < MIN) out.push("write " + (MIN - w) + " more characters about your rabbit hole");
+    if (topic.value.trim().length < 5) out.push("share your favourite useless fact");
+    if (!rules.every(function (c) { return c.checked; })) out.push("tick all three house rules");
+    if (!adult.checked) out.push("confirm you are 18 or older");
+    return out;
+  }
+
+  function refresh() {
+    count.textContent = why.value.trim().length + " / " + MIN + " min";
+    var need = missing();
+    go.disabled = need.length > 0;
+    statusEl.textContent = need.length ? "To continue: " + need.join(", ") + "." : "Ready when you are.";
+  }
+
+  function build() {
+    return [
+      "Hi! I'd like to join the nerds.",
+      "",
+      "Name: " + pname.value.trim(),
+      "Age: " + Math.floor(Number(age.value)),
+      "Where I found the group: " + source.value.trim(),
+      "A rabbit hole I went down: " + why.value.trim(),
+      "A useless fact I love: " + topic.value.trim(),
+      "Vouched for by: " + (vouch.value.trim() || "none"),
+      "",
+      "I confirm I am 18 or older, and I agree to the three house rules (be kind, keep it inside, no spam)."
+    ].join("\n");
+  }
+
+  function copyMessage() {
+    var p = (navigator.clipboard && navigator.clipboard.writeText)
+      ? navigator.clipboard.writeText(msg.value)
+      : Promise.reject(new Error("no clipboard"));
+    p.then(function () {
+      copyNote.textContent = "Copied. Paste it into Telegram.";
+    }).catch(function () {
+      try { msg.focus(); msg.select(); } catch (e) {}
+      copyNote.textContent = "Copying is blocked here. The text is selected, so use your phone's copy option.";
+    });
+  }
+
+  why.addEventListener("input", refresh);
+  topic.addEventListener("input", refresh);
+  pname.addEventListener("input", refresh);
+  age.addEventListener("input", refresh);
+  source.addEventListener("input", refresh);
+  vouch.addEventListener("input", refresh);
+  adult.addEventListener("change", refresh);
+  rules.forEach(function (c) { c.addEventListener("change", refresh); });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (missing().length) { refresh(); return; }
+    msg.value = build();
+    form.hidden = true;
+    done.hidden = false;
+    copyMessage();
+    try { window.scrollTo(0, 0); } catch (err) {}
+  });
+
+  $("copy").addEventListener("click", copyMessage);
+  $("edit").addEventListener("click", function () {
+    done.hidden = true;
+    form.hidden = false;
+    copyNote.textContent = "";
+    why.focus();
+  });
+
+  var tg = $("tg"), notg = $("notg");
+  if (TELEGRAM_URL) {
+    tg.href = TELEGRAM_URL;
+    tg.hidden = false;
+  } else {
+    notg.hidden = false;
+  }
+
+  refresh();
+})();
+</script>
+
+</body></html>
