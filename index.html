@@ -259,7 +259,7 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
     var w = why.value.trim().length;
     if (w < MIN) out.push("write " + (MIN - w) + " more characters about your rabbit hole");
     if (topic.value.trim().length < 5) out.push("share your favourite useless fact");
-    if (!rules.every(function (c) { return c.checked; })) out.push("tick all three house rules");
+    if (!rules.every(function (c) { return c.checked; })) out.push("tick all four house rules");
     if (!adult.checked) out.push("confirm you are 18 or older");
     return out;
   }
@@ -282,7 +282,7 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
       "A useless fact I love: " + topic.value.trim(),
       "Vouched for by: " + (vouch.value.trim() || "none"),
       "",
-      "I confirm I am 18 or older, and I agree to the three house rules (be kind, keep it inside, no spam)."
+      "I confirm I am 18 or older, and I agree to the four house rules (be kind, keep it inside, no spam, own risk)."
     ].join("\n");
   }
 
