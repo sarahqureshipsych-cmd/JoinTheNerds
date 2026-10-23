@@ -153,6 +153,9 @@ h2 { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; marg
 .steps { margin: 0; padding-left: 1.2rem; display: grid; gap: 4px; font-size: .95rem; }
 .warn { color: var(--err); font-weight: 600; margin: 0; }
 footer { font-size: .8125rem; color: var(--muted); margin: 0; }
+@media print {
+  button, a.primary, footer { display: none !important; }
+}
 </style>
 
 <main class="wrap">
@@ -216,9 +219,10 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
 
   <section id="done" class="panel" hidden aria-labelledby="done-title">
     <h2 id="done-title">Your answer is ready.</h2>
-    <ol class="steps">
+<ol class="steps">
+      <li>Click "Save as PDF" below to download your form.</li>
       <li>Copy the message below.</li>
-      <li>Open Telegram and send it.</li>
+      <li>Open Telegram, paste the message, and <b>attach the PDF file</b> before sending.</li>
       <li>Wait for the admin to approve you.</li>
     </ol>
     <div class="field">
@@ -226,9 +230,10 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
       <textarea id="msg" class="msg" readonly></textarea>
       <p class="note" id="copynote" role="status" aria-live="polite"></p>
     </div>
-    <div class="row">
+  <div class="row">
       <button type="button" class="ghost" id="copy">Copy message</button>
       <button type="button" class="ghost" id="edit">Edit my answer</button>
+      <button type="button" class="ghost" id="printBtn">Save as PDF</button>
     </div>
     <a class="primary" id="tg" href="#" target="_blank" rel="noopener noreferrer" hidden>Open Telegram</a>
     <p class="warn" id="notg" hidden>The admin has not added the Telegram link yet. Check back soon.</p>
@@ -324,7 +329,7 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
     copyNote.textContent = "";
     why.focus();
   });
-
+$("printBtn").addEventListener("click", function () { window.print(); });
   var tg = $("tg"), notg = $("notg");
   if (TELEGRAM_URL) {
     tg.href = TELEGRAM_URL;
