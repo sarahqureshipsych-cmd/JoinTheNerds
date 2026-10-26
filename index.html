@@ -176,7 +176,11 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
         <input type="number" id="age" name="age" inputmode="numeric" min="18" max="99" placeholder="e.g. 21">
       </div>
     </div>
-
+<div class="field">
+      <label for="social">Active social media link or handle</label>
+      <p class="hint" id="social-hint">Your handle (e.g., Instagram) to prove you are a real person. Active means you use it daily, even if you don't post.</p>
+      <input type="text" id="social" name="social" maxlength="150" autocomplete="off" aria-describedby="social-hint" placeholder="@username or link">
+    </div>
     <div class="field">
       <label for="source">Where did you find this group?</label>
       <p class="hint" id="source-hint">Which platform? Or did someone refer you? Tell us how you found us.</p>
@@ -250,7 +254,7 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
 
   var $ = function (id) { return document.getElementById(id); };
   var form = $("f"), why = $("why"), topic = $("topic"), go = $("go");
-  var pname = $("pname"), age = $("age"), source = $("source"), vouch = $("vouch"), adult = $("adult");
+  var pname = $("pname"), age = $("age"), social = $("social"), source = $("source"), vouch = $("vouch"), adult = $("adult");
   var statusEl = $("status"), count = $("count");
   var done = $("done"), msg = $("msg"), copyNote = $("copynote");
   var rules = Array.prototype.slice.call(document.querySelectorAll('input[name="rule"]'));
@@ -260,6 +264,7 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
     var a = Number(age.value);
     if (pname.value.trim().length < 2) out.push("add your name");
     if (!(a >= 18 && a <= 99 && Math.floor(a) === a)) out.push("enter your age as a number (18 or older)");
+    if (social.value.trim().length < 3) out.push("add your social media handle");
     if (source.value.trim().length < 3) out.push("tell us where you found the group");
     var w = why.value.trim().length;
     if (w < MIN) out.push("write " + (MIN - w) + " more characters about your rabbit hole");
@@ -282,6 +287,7 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
       "",
       "Name: " + pname.value.trim(),
       "Age: " + Math.floor(Number(age.value)),
+      "Social media: " + social.value.trim(),
       "Where I found the group: " + source.value.trim(),
       "A rabbit hole I went down: " + why.value.trim(),
       "A useless fact I love: " + topic.value.trim(),
@@ -307,6 +313,7 @@ footer { font-size: .8125rem; color: var(--muted); margin: 0; }
   topic.addEventListener("input", refresh);
   pname.addEventListener("input", refresh);
   age.addEventListener("input", refresh);
+  social.addEventListener("input", refresh);
   source.addEventListener("input", refresh);
   vouch.addEventListener("input", refresh);
   adult.addEventListener("change", refresh);
